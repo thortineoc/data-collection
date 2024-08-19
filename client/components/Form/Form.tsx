@@ -1,15 +1,25 @@
-import { View, StyleSheet, TextInput, Button } from "react-native";
+import { View, StyleSheet, Button } from "react-native";
+import Input from "../Input/Input";
 
 export default function Form() {
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textInput} placeholder="First name" />
-      <TextInput style={styles.textInput} placeholder="Middle name" />
-      <TextInput style={styles.textInput} placeholder="Last name" />
-      <TextInput style={styles.textInput} placeholder="Address" />
-      <TextInput style={styles.textInput} placeholder="Country" />
-      <TextInput style={styles.textInput} placeholder="State/Region" />
-      <TextInput style={styles.textInput} placeholder="City" />
+      <Input
+        label="First name"
+        textInputConfig={{
+          autoCapitalize: "none",
+          autoCorrect: false,
+          onChangeText: (text) => {
+            console.log(text);
+          },
+        }}
+      />
+      <Input label="Middle name" />
+      <Input label="Last name" />
+      <Input label="Address" />
+      <Input label="Country" />
+      <Input label="State/Region" />
+      <Input label="City" />
 
       <View style={styles.button}>
         <Button title="Submit" />
@@ -24,14 +34,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 10,
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: "#aaa",
-    borderRadius: 5,
-    padding: 8,
-    margin: 8,
-    minWidth: 250,
   },
   button: {
     marginTop: 20,
