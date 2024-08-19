@@ -8,15 +8,22 @@ import {
 
 function Input({
   label,
+  invalid,
   textInputConfig,
 }: {
   label: string;
+  invalid: boolean;
   textInputConfig?: TextInputProps;
 }) {
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
-      <TextInput style={styles.textInput} {...textInputConfig} />
+      <Text style={[styles.label, invalid && styles.invalidLabel]}>
+        {label}
+      </Text>
+      <TextInput
+        style={[styles.textInput, invalid && styles.invalidInput]}
+        {...textInputConfig}
+      />
     </View>
   );
 }
@@ -29,10 +36,19 @@ const styles = StyleSheet.create({
     borderColor: "#aaa",
     borderRadius: 5,
     padding: 8,
-    margin: 8,
+    marginHorizontal: 8,
+    marginBottom: 14,
     minWidth: 250,
+    backgroundColor: "white",
   },
   label: {
     color: "black",
+    marginLeft: 8,
+  },
+  invalidLabel: {
+    color: "red",
+  },
+  invalidInput: {
+    borderColor: "red",
   },
 });
