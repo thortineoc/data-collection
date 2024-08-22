@@ -5,7 +5,16 @@ import CategoryTile from "@/components/CategoryTile/CategoryTile";
 function Dashboard({ navigation }) {
   function renderCategoryItem(itemData: any) {
     function navigate() {
-      navigation.navigate("Form");
+      console.log(itemData);
+
+      let screen = "ProfileForm";
+      if (itemData.item.id === "c2") {
+        screen = "AddressForm";
+      } else if (itemData.item.id === "c3") {
+        screen = "EmploymentForm";
+      }
+
+      navigation.navigate(screen);
       console.log("clicked");
     }
 

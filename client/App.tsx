@@ -1,7 +1,9 @@
-import Form from "@/components/Form/Form";
 import Dashboard from "@/screens/Dashboard/Dashboard";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ProfileForm from "./screens/ProfileForm/ProfileForm";
+import AddressForm from "./screens/AddressForm/AddressForm";
+import EmploymentForm from "./screens/EmploymentForm/EmploymentForm";
 
 export default function RootLayout() {
   const Stack = createNativeStackNavigator();
@@ -10,7 +12,9 @@ export default function RootLayout() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Dashboard" component={Dashboard} />
-        <Stack.Screen name="Form" component={Form} />
+        <Stack.Screen name="ProfileForm" component={ProfileForm} />
+        <Stack.Screen name="AddressForm" component={AddressForm} />
+        <Stack.Screen name="EmploymentForm" component={EmploymentForm} />
       </Stack.Navigator>
     </NavigationContainer>
   );

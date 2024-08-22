@@ -1,8 +1,8 @@
 import { View, StyleSheet, Button, Text } from "react-native";
-import Input from "../Input/Input";
 import { useState } from "react";
+import Input from "@/components/Input/Input";
 
-export default function Form(this: any) {
+export default function ProfileForm(this: any) {
   const [inputs, setInputs] = useState({
     firstName: { value: "", isValid: true },
     middleName: { value: "", isValid: true },
@@ -123,10 +123,6 @@ export default function Form(this: any) {
 const styles = StyleSheet.create({
   container: {
     padding: 40,
-    borderWidth: 1,
-    borderColor: "#e0e0e0",
-    backgroundColor: "#e0e0e0",
-    borderRadius: 10,
   },
   button: {
     marginTop: 20,
