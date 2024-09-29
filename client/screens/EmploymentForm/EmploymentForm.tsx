@@ -1,4 +1,4 @@
-import { View, StyleSheet, Button, Text } from "react-native";
+import { View, StyleSheet, Button, Text, ScrollView } from "react-native";
 import { useState } from "react";
 import Input from "@/components/Input/Input";
 
@@ -46,7 +46,7 @@ export default function EmploymentForm(this: any) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Input
         label="Workplace*"
         invalid={!inputs.workplace.isValid}
@@ -77,7 +77,7 @@ export default function EmploymentForm(this: any) {
       <View style={styles.button}>
         <Button title="Submit" onPress={handleSubmit} />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

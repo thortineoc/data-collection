@@ -1,12 +1,16 @@
+import { ProfileData } from "@/models/profile";
+import ProfileDashboard from "@/screens/Dashboard/Profile-dashboard";
 import { Pressable, View, Text, StyleSheet, Platform } from "react-native";
 
 function CategoryTile({
   title,
   icon,
+  data,
   onPress,
 }: {
   title: string;
   icon: string;
+  data: ProfileData;
   onPress: () => void;
 }) {
   return (
@@ -21,6 +25,7 @@ function CategoryTile({
       >
         <View style={styles.innerContainer}>
           <Text style={styles.title}>{title}</Text>
+          {title === "profile" && <ProfileDashboard data={data} />}
         </View>
       </Pressable>
     </View>
@@ -59,5 +64,6 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 24,
+    marginBottom: 8,
   },
 });

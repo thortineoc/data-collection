@@ -1,8 +1,18 @@
-import { View, StyleSheet, Button, Text } from "react-native";
-import { useState } from "react";
+import { View, StyleSheet, Button, Text, ScrollView } from "react-native";
+import { useContext, useEffect, useState } from "react";
 import Input from "@/components/Input/Input";
+import { storeProfileData } from "@/services/httpService";
+import { UserDataContext } from "@/store/userData.context";
 
 export default function ProfileForm(this: any) {
+  const userDataCtx = useContext(UserDataContext);
+
+  const hasProfileData = !!userDataCtx.profile;
+
+  useEffect(() => {
+    console.log(hasProfileData)
+  }, [])
+
   const [inputs, setInputs] = useState({
     firstName: { value: "", isValid: true },
     middleName: { value: "", isValid: true },
@@ -60,10 +70,13 @@ export default function ProfileForm(this: any) {
       });
       return;
     }
+
+    userDataCtx.setProfile(formData);
+    storeProfileData(formData);
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Input
         label="First name*"
         invalid={!inputs.firstName.isValid}
@@ -116,7 +129,7 @@ export default function ProfileForm(this: any) {
       <View style={styles.button}>
         <Button title="Submit" onPress={handleSubmit} />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
