@@ -3,15 +3,38 @@ import { useContext, useEffect, useState } from "react";
 import Input from "@/components/Input/Input";
 import { storeProfileData } from "@/services/httpService";
 import { UserDataContext } from "@/store/userData.context";
+import { ProfileData } from "@/models/profile";
 
-export default function ProfileForm(this: any) {
+export default function ProfileForm({ navigation }) {
   const userDataCtx = useContext(UserDataContext);
 
   const hasProfileData = !!userDataCtx.profile;
 
   useEffect(() => {
-    console.log(hasProfileData)
-  }, [])
+    console.log(hasProfileData);
+
+    if (hasProfileData) {
+      setInputs({
+        firstName: {
+          value: (userDataCtx.profile as ProfileData).firstName,
+          isValid: true,
+        },
+        middleName: {
+          value: (userDataCtx.profile as ProfileData).middleName,
+          isValid: true,
+        },
+        lastName: {
+          value: (userDataCtx.profile as ProfileData).lastName,
+          isValid: true,
+        },
+        dateOfBirth: {
+          value:
+            (userDataCtx.profile as ProfileData).dateOfBirth?.toString() ?? "",
+          isValid: true,
+        },
+      });
+    }
+  }, []);
 
   const [inputs, setInputs] = useState({
     firstName: { value: "", isValid: true },
@@ -71,8 +94,10 @@ export default function ProfileForm(this: any) {
       return;
     }
 
-    userDataCtx.setProfile(formData);
+    console.log("HAAAAAAAAAAA", userDataCtx.profile.id);
+
     storeProfileData(formData);
+    navigation.navigate("Dashboard");
   }
 
   return (

@@ -24,7 +24,11 @@ function userDataReducer(state, action) {
 }
 
 function UserDataContextProvider({ children }: any) {
-  const [state, dispatch] = useReducer(userDataReducer, {});
+  const [state, dispatch] = useReducer(userDataReducer, {
+    profile: null,
+    address: null,
+    employment: null,
+  });
 
   function setProfile(profileData: ProfileData) {
     dispatch({ type: "ADD_PROFILE", payload: profileData });
@@ -34,8 +38,16 @@ function UserDataContextProvider({ children }: any) {
     dispatch({ type: "SET_USER_DATA", payload: userData });
   }
 
+  const value = {
+    profile: state.profile,
+    address: state.address,
+    employment: state.employment,
+    setProfile: setProfile,
+    setUserData: setUserData,
+  };
+
   return (
-    <UserDataContext.Provider value={state}>
+    <UserDataContext.Provider value={value}>
       {children}
     </UserDataContext.Provider>
   );

@@ -8,13 +8,18 @@ import { UserDataContext } from "@/store/userData.context";
 
 function Dashboard({ navigation }) {
   const userDataCtx = useContext(UserDataContext);
-  const [fetchedProfileData, setFetchedProfileData] = useState<ProfileData>([]);
+  const [fetchedProfileData, setFetchedProfileData] = useState<ProfileData>({
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    dateOfBirth: undefined,
+  });
 
   useEffect(() => {
     async function fetchProfile() {
       const profileData = await getProfileData();
       setFetchedProfileData(profileData[0]);
-      console.log(profileData[0]);
+      console.log("A", profileData);
       userDataCtx.setUserData({ profile: profileData[0] });
     }
 
@@ -23,8 +28,6 @@ function Dashboard({ navigation }) {
 
   function renderCategoryItem(itemData: any) {
     function navigate() {
-      console.log(itemData);
-
       let screen = "ProfileForm";
       if (itemData.item.id === "c2") {
         screen = "AddressForm";
@@ -33,7 +36,6 @@ function Dashboard({ navigation }) {
       }
 
       navigation.navigate(screen);
-      console.log("clicked");
     }
 
     return (

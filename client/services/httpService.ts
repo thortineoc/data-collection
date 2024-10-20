@@ -1,13 +1,13 @@
 import { ProfileData } from "@/models/profile";
 import axios from "axios";
 
-const BACKEND_URL = "https://data-collection-e4a6d-default-rtdb.europe-west1.firebasedatabase.app"
+const BACKEND_URL = "https://data-collection2-4cf7c-default-rtdb.europe-west1.firebasedatabase.app/"
 
 export function storeProfileData(formData: ProfileData) {
     axios.post(
       BACKEND_URL + '/profile.json',
       formData
-    );
+    );    
 }
 
 export async function getProfileData(): Promise<ProfileData[]> {
