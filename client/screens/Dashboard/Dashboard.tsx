@@ -6,10 +6,12 @@ import { getProfileData } from "@/services/httpService";
 import { ProfileData } from "@/models/profile";
 import { UserDataContext } from "@/store/userData.context";
 import { useIsFocused } from "@react-navigation/native";
+import { Loader } from "@/components/Loader/Loader";
 
 function Dashboard({ navigation }) {
   const isFocused = useIsFocused();
   const userDataCtx = useContext(UserDataContext);
+  const [isFetching, setIsFetching] = useState(true);
   const [fetchedProfileData, setFetchedProfileData] = useState<ProfileData>({
     firstName: "",
     middleName: "",
@@ -18,6 +20,8 @@ function Dashboard({ navigation }) {
   });
 
   useEffect(() => {
+    setIsFetching(true);
+
     async function fetchProfile() {
       const profileData = await getProfileData();
       setFetchedProfileData(profileData[0]);
@@ -27,6 +31,7 @@ function Dashboard({ navigation }) {
 
     if (isFocused) {
       fetchProfile();
+      setIsFetching(false);
     }
   }, [isFocused]);
 
@@ -58,11 +63,15 @@ function Dashboard({ navigation }) {
       <Text style={styles.subheader}>
         We need to collect your data and provide them to your employer.
       </Text>
-      <FlatList
-        data={CATEGORIES}
-        keyExtractor={(item) => item.id}
-        renderItem={renderCategoryItem}
-      ></FlatList>
+      {isFetching ? (
+        <Loader />
+      ) : (
+        <FlatList
+          data={CATEGORIES}
+          keyExtractor={(item) => item.id}
+          renderItem={renderCategoryItem}
+        ></FlatList>
+      )}
     </View>
   );
 }

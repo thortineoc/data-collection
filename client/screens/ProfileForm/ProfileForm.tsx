@@ -5,9 +5,11 @@ import { storeProfileData, updateProfileData } from "@/services/httpService";
 import { UserDataContext } from "@/store/userData.context";
 import { ProfileData } from "@/models/profile";
 import { mapDate } from "@/utils/utils";
+import { Loader } from "@/components/Loader/Loader";
 
 export default function ProfileForm({ navigation }) {
   const userDataCtx = useContext(UserDataContext);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const hasProfileData = !!userDataCtx.profile;
 
@@ -95,15 +97,20 @@ export default function ProfileForm({ navigation }) {
       return;
     }
 
+    setIsSubmitting(true);
     if (userDataCtx.profile.id) {
-      updateProfileData(formData, userDataCtx.profile.id);
+      await updateProfileData(formData, userDataCtx.profile.id);
     } else {
-      storeProfileData(formData);
+      await storeProfileData(formData);
     }
+    setIsSubmitting(false);
     console.log("navigate");
-    navigation.navigate("Dashboard");
+    navigation.goBack();
   }
 
+  if (isSubmitting) {
+    return <Loader />;
+  }
   return (
     <ScrollView style={styles.container}>
       <Input

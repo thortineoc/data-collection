@@ -3,15 +3,15 @@ import axios from "axios";
 
 const BACKEND_URL = "https://data-collection2-4cf7c-default-rtdb.europe-west1.firebasedatabase.app/"
 
-export async function storeProfileData(formData: ProfileData, id?: string) {
-    await axios.post(
+export function storeProfileData(formData: ProfileData, id?: string) {
+    return axios.post(
         BACKEND_URL + '/profile.json',
         formData
     );    
 }
 
-export async function updateProfileData(formData: ProfileData, id: string) {
-    await axios.put(
+export function updateProfileData(formData: ProfileData, id: string) {
+    return axios.put(
         BACKEND_URL + `/profile/${id}.json`,
         formData
     );    
