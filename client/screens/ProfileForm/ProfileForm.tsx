@@ -1,9 +1,10 @@
 import { View, StyleSheet, Button, Text, ScrollView } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import Input from "@/components/Input/Input";
-import { storeProfileData } from "@/services/httpService";
+import { storeProfileData, updateProfileData } from "@/services/httpService";
 import { UserDataContext } from "@/store/userData.context";
 import { ProfileData } from "@/models/profile";
+import { mapDate } from "@/utils/utils";
 
 export default function ProfileForm({ navigation }) {
   const userDataCtx = useContext(UserDataContext);
@@ -29,7 +30,7 @@ export default function ProfileForm({ navigation }) {
         },
         dateOfBirth: {
           value:
-            (userDataCtx.profile as ProfileData).dateOfBirth?.toString() ?? "",
+            mapDate((userDataCtx.profile as ProfileData).dateOfBirth) ?? "",
           isValid: true,
         },
       });
@@ -57,7 +58,7 @@ export default function ProfileForm({ navigation }) {
     });
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     const formData = {
       firstName: inputs.firstName.value,
       middleName: inputs.middleName.value,
@@ -94,9 +95,12 @@ export default function ProfileForm({ navigation }) {
       return;
     }
 
-    console.log("HAAAAAAAAAAA", userDataCtx.profile.id);
-
-    storeProfileData(formData);
+    if (userDataCtx.profile.id) {
+      updateProfileData(formData, userDataCtx.profile.id);
+    } else {
+      storeProfileData(formData);
+    }
+    console.log("navigate");
     navigation.navigate("Dashboard");
   }
 
@@ -139,7 +143,7 @@ export default function ProfileForm({ navigation }) {
         label="Date of birth*"
         invalid={!inputs.dateOfBirth.isValid}
         textInputConfig={{
-          placeholder: "DD-MM-YYYY",
+          placeholder: "YYYY-MM-DD",
           autoCapitalize: "none",
           autoCorrect: false,
           onChangeText: inputChangedHandler.bind(this, "dateOfBirth"),

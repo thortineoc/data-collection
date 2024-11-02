@@ -5,8 +5,10 @@ import { useContext, useEffect, useState } from "react";
 import { getProfileData } from "@/services/httpService";
 import { ProfileData } from "@/models/profile";
 import { UserDataContext } from "@/store/userData.context";
+import { useIsFocused } from "@react-navigation/native";
 
 function Dashboard({ navigation }) {
+  const isFocused = useIsFocused();
   const userDataCtx = useContext(UserDataContext);
   const [fetchedProfileData, setFetchedProfileData] = useState<ProfileData>({
     firstName: "",
@@ -23,8 +25,10 @@ function Dashboard({ navigation }) {
       userDataCtx.setUserData({ profile: profileData[0] });
     }
 
-    fetchProfile();
-  }, []);
+    if (isFocused) {
+      fetchProfile();
+    }
+  }, [isFocused]);
 
   function renderCategoryItem(itemData: any) {
     function navigate() {
