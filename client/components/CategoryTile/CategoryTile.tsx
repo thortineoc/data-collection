@@ -3,17 +3,18 @@ import ProfileDashboard from "@/screens/Dashboard/Profile-dashboard";
 import React from "react";
 import { Pressable, View, Text, StyleSheet, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import AddressDashboard from "@/screens/Dashboard/Address-dashboard";
 
 function CategoryTile({
   title,
   icon,
-  data,
   onPress,
+  children,
 }: {
   title: string;
   icon: "person-outline" | "home-outline" | "business-outline";
-  data: ProfileData;
   onPress: () => void;
+  children: any;
 }) {
   return (
     <View style={styles.category}>
@@ -30,7 +31,7 @@ function CategoryTile({
             <Text style={styles.title}>{title}</Text>
             <Ionicons name={icon} size={20} class={styles.icon} />
           </View>
-          {title === "Profile" && <ProfileDashboard data={data} />}
+          {children}
         </View>
       </Pressable>
     </View>

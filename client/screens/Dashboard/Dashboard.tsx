@@ -7,24 +7,20 @@ import { ProfileData } from "@/models/profile";
 import { UserDataContext } from "@/store/userData.context";
 import { useIsFocused } from "@react-navigation/native";
 import { Loader } from "@/components/Loader/Loader";
+import ProfileDashboard from "./Profile-dashboard";
+import AddressDashboard from "./Address-dashboard";
+import EmploymentDashboard from "./Employment-dashboard";
 
 function Dashboard({ navigation }) {
   const isFocused = useIsFocused();
   const userDataCtx = useContext(UserDataContext);
   const [isFetching, setIsFetching] = useState(true);
-  const [fetchedProfileData, setFetchedProfileData] = useState<ProfileData>({
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    dateOfBirth: undefined,
-  });
 
   useEffect(() => {
     setIsFetching(true);
 
     async function fetchProfile() {
       const profileData = await getProfileData();
-      setFetchedProfileData(profileData[0]);
       userDataCtx.setUserData({ profile: profileData[0] });
     }
 
@@ -50,9 +46,18 @@ function Dashboard({ navigation }) {
       <CategoryTile
         title={itemData.item.title}
         icon={itemData.item.icon}
-        data={fetchedProfileData}
         onPress={navigate}
-      />
+      >
+        {itemData.item.id === "c1" && userDataCtx.profile && (
+          <ProfileDashboard data={userDataCtx.profile} />
+        )}
+        {itemData.item.id === "c2" && userDataCtx.address && (
+          <AddressDashboard data={userDataCtx.address} />
+        )}
+        {itemData.item.id === "c3" && userDataCtx.employment && (
+          <EmploymentDashboard data={userDataCtx.employment} />
+        )}
+      </CategoryTile>
     );
   }
 

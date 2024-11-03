@@ -2,7 +2,7 @@ import { ProfileData } from "@/models/profile";
 import { mapDate } from "@/utils/utils";
 import { View, Text } from "react-native";
 
-function ProfileDashboard({ data }: { data: ProfileData }) {
+function ProfileDashboard({ data }: { data?: ProfileData }) {
   return (
     <View>
       <Text>First name: {data?.firstName}</Text>

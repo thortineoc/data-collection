@@ -1,11 +1,19 @@
+import { AddressData } from "@/models/address";
+import { EmploymentData } from "@/models/employment";
 import { ProfileData } from "@/models/profile";
 import { UserData } from "@/models/userData";
 import { createContext, useReducer, useState } from "react";
 
-export const UserDataContext = createContext({
-  profile: {},
-  address: {},
-  employment: {},
+export const UserDataContext = createContext<{
+  profile?: ProfileData;
+  address?: AddressData;
+  employment?: EmploymentData;
+  setProfile: (profileData: ProfileData) => any;
+  setUserData: (userData: UserData) => any;
+}>({
+  profile: undefined,
+  address: undefined,
+  employment: undefined,
   setProfile: (profileData: ProfileData) => {},
   setUserData: (userData: UserData) => {},
 });
