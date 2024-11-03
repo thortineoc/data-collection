@@ -15,7 +15,6 @@ export function updateProfileData(formData: ProfileData, id: string) {
         BACKEND_URL + `/profile/${id}.json`,
         formData
     );    
-    console.log('update')
 }
 
 export async function getProfileData(): Promise<ProfileData[]> {

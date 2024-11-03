@@ -14,8 +14,6 @@ export default function ProfileForm({ navigation }) {
   const hasProfileData = !!userDataCtx.profile;
 
   useEffect(() => {
-    console.log(hasProfileData);
-
     if (hasProfileData) {
       setInputs({
         firstName: {
@@ -104,7 +102,6 @@ export default function ProfileForm({ navigation }) {
       await storeProfileData(formData);
     }
     setIsSubmitting(false);
-    console.log("navigate");
     navigation.goBack();
   }
 

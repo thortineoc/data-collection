@@ -1,6 +1,8 @@
 import { ProfileData } from "@/models/profile";
 import ProfileDashboard from "@/screens/Dashboard/Profile-dashboard";
+import React from "react";
 import { Pressable, View, Text, StyleSheet, Platform } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 function CategoryTile({
   title,
@@ -9,7 +11,7 @@ function CategoryTile({
   onPress,
 }: {
   title: string;
-  icon: string;
+  icon: "person-outline" | "home-outline" | "business-outline";
   data: ProfileData;
   onPress: () => void;
 }) {
@@ -24,8 +26,11 @@ function CategoryTile({
         android_ripple={{ color: "#eee" }}
       >
         <View style={styles.innerContainer}>
-          <Text style={styles.title}>{title}</Text>
-          {title === "profile" && <ProfileDashboard data={data} />}
+          <View style={styles.header}>
+            <Text style={styles.title}>{title}</Text>
+            <Ionicons name={icon} size={20} class={styles.icon} />
+          </View>
+          {title === "Profile" && <ProfileDashboard data={data} />}
         </View>
       </Pressable>
     </View>
@@ -64,6 +69,16 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 24,
-    marginBottom: 8,
+    paddingRight: 8,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+  icon: {
+    marginLeft: 10,
+    paddingBottom: 8,
   },
 });

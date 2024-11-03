@@ -1,5 +1,9 @@
-export const CATEGORIES = [
-    {id: 'c1', title: 'profile', icon: 'profile'},
-    {id: 'c2', title: 'address', icon: 'address'},
-    {id: 'c3', title: 'employment', icon: 'employment'}    
+export const CATEGORIES: Array<{
+    id: string,
+    title: string,
+    icon: string
+}> = [
+    {id: 'c1', title: 'Profile', icon: 'person-outline'},
+    {id: 'c2', title: 'Address', icon: 'home-outline'},
+    {id: 'c3', title: 'Employment', icon: 'business-outline'}    
 ]

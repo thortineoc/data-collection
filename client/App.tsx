@@ -14,9 +14,21 @@ export default function RootLayout() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Dashboard" component={Dashboard} />
-          <Stack.Screen name="ProfileForm" component={ProfileForm} />
-          <Stack.Screen name="AddressForm" component={AddressForm} />
-          <Stack.Screen name="EmploymentForm" component={EmploymentForm} />
+          <Stack.Screen
+            name="ProfileForm"
+            component={ProfileForm}
+            options={{ title: "Profile" }}
+          />
+          <Stack.Screen
+            name="AddressForm"
+            component={AddressForm}
+            options={{ title: "Address" }}
+          />
+          <Stack.Screen
+            name="EmploymentForm"
+            component={EmploymentForm}
+            options={{ title: "Employment" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </UserDataContextProvider>

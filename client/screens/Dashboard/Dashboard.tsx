@@ -25,7 +25,6 @@ function Dashboard({ navigation }) {
     async function fetchProfile() {
       const profileData = await getProfileData();
       setFetchedProfileData(profileData[0]);
-      console.log("A", profileData);
       userDataCtx.setUserData({ profile: profileData[0] });
     }
 
