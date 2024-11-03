@@ -12,7 +12,7 @@ function CategoryTile({
   children,
 }: {
   title: string;
-  icon: "person-outline" | "home-outline" | "business-outline";
+  icon: "person-outline" | "home-outline" | "briefcase-outline";
   onPress: () => void;
   children: any;
 }) {

@@ -1,6 +1,8 @@
 import { AddressData } from "@/models/address";
 import { EmploymentData } from "@/models/employment";
 import { ProfileData } from "@/models/profile";
+import { ResponseData } from "@/models/response";
+import { mapAddress, mapEmployment, mapProfile } from "@/utils/mappers";
 import axios from "axios";
 
 const BACKEND_URL = "https://data-collection2-4cf7c-default-rtdb.europe-west1.firebasedatabase.app/"
@@ -33,18 +35,30 @@ export function updateAddressData(formData: AddressData, id: string) {
     );    
 }
 
-export async function getProfileData(): Promise<ProfileData[]> {
-    const response = await axios.get(BACKEND_URL + '/profile.json')
-    const objects = [];
-    for (const key in response.data) {
-        const obj = {
-            id: key,
-            firstName: response.data[key].firstName,
-            middleName: response.data[key].middleName,
-            lastName: response.data[key].lastName,
-            dateOfBirth: new Date(response.data[key].dateOfBirth)
-        }
-        objects.push(obj)
+export function storeEmploymentData(formData: EmploymentData) {
+    return axios.post(
+        BACKEND_URL + '/employment.json',
+        formData
+    );    
+}
+
+export function updateEmploymentData(formData: EmploymentData, id: string) {
+    return axios.put(
+        BACKEND_URL + `/employment/${id}.json`,
+        formData
+    );    
+}
+
+export async function getAllData(): Promise<ResponseData> {
+    const responseProfile = await (await axios.get(BACKEND_URL + '/profile.json')).data
+    const responseAddress = await (await axios.get(BACKEND_URL + '/address.json')).data
+    const responseEmployment = await (await axios.get(BACKEND_URL + '/employment.json')).data
+
+    const result = {
+        profile: mapProfile(responseProfile),
+        address: mapAddress(responseAddress),
+        employment: mapEmployment(responseEmployment)
     }
-    return objects
+   
+    return result;
 }

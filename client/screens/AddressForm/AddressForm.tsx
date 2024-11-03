@@ -2,11 +2,8 @@ import { View, StyleSheet, Button, Text, ScrollView } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import Input from "@/components/Input/Input";
 import { UserDataContext } from "@/store/userData.context";
-import {
-  storeAddressData,
-  updateAddressData,
-  updateProfileData,
-} from "@/services/httpService";
+import { storeAddressData, updateAddressData } from "@/services/httpService";
+import { Loader } from "@/components/Loader/Loader";
 
 export default function AddressForm({ navigation }) {
   const userDataCtx = useContext(UserDataContext);
@@ -124,6 +121,9 @@ export default function AddressForm({ navigation }) {
     navigation.goBack();
   }
 
+  if (isSubmitting) {
+    return <Loader />;
+  }
   return (
     <ScrollView style={styles.container}>
       <Input

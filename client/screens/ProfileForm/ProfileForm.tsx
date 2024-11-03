@@ -4,7 +4,7 @@ import Input from "@/components/Input/Input";
 import { storeProfileData, updateProfileData } from "@/services/httpService";
 import { UserDataContext } from "@/store/userData.context";
 import { ProfileData } from "@/models/profile";
-import { mapDate } from "@/utils/utils";
+import { mapDate } from "@/utils/dateUtils";
 import { Loader } from "@/components/Loader/Loader";
 
 export default function ProfileForm({ navigation }) {

@@ -2,8 +2,7 @@ import { FlatList, Text, View, StyleSheet } from "react-native";
 import { CATEGORIES } from "@/models/categories";
 import CategoryTile from "@/components/CategoryTile/CategoryTile";
 import { useContext, useEffect, useState } from "react";
-import { getProfileData } from "@/services/httpService";
-import { ProfileData } from "@/models/profile";
+import { getAllData } from "@/services/httpService";
 import { UserDataContext } from "@/store/userData.context";
 import { useIsFocused } from "@react-navigation/native";
 import { Loader } from "@/components/Loader/Loader";
@@ -19,13 +18,19 @@ function Dashboard({ navigation }) {
   useEffect(() => {
     setIsFetching(true);
 
-    async function fetchProfile() {
-      const profileData = await getProfileData();
-      userDataCtx.setUserData({ profile: profileData[0] });
+    async function fetchData() {
+      const userData = await getAllData();
+
+      console.log(userData);
+      userDataCtx.setUserData({
+        profile: userData.profile,
+        address: userData.address,
+        employment: userData.employment,
+      });
     }
 
     if (isFocused) {
-      fetchProfile();
+      fetchData();
       setIsFetching(false);
     }
   }, [isFocused]);

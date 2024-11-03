@@ -5,5 +5,5 @@ export const CATEGORIES: Array<{
 }> = [
     {id: 'c1', title: 'Profile', icon: 'person-outline'},
     {id: 'c2', title: 'Address', icon: 'home-outline'},
-    {id: 'c3', title: 'Employment', icon: 'business-outline'}    
+    {id: 'c3', title: 'Employment', icon: 'briefcase-outline'}    
 ]

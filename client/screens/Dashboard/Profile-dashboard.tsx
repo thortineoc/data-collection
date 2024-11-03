@@ -1,5 +1,5 @@
 import { ProfileData } from "@/models/profile";
-import { mapDate } from "@/utils/utils";
+import { mapDate } from "@/utils/dateUtils";
 import { View, Text } from "react-native";
 
 function ProfileDashboard({ data }: { data?: ProfileData }) {
