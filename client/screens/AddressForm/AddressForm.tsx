@@ -1,8 +1,46 @@
 import { View, StyleSheet, Button, Text, ScrollView } from "react-native";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Input from "@/components/Input/Input";
+import { UserDataContext } from "@/store/userData.context";
+import {
+  storeAddressData,
+  updateAddressData,
+  updateProfileData,
+} from "@/services/httpService";
 
-export default function AddressForm(this: any) {
+export default function AddressForm({ navigation }) {
+  const userDataCtx = useContext(UserDataContext);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const addressData = userDataCtx.address;
+
+  useEffect(() => {
+    if (!!addressData) {
+      setInputs({
+        address: {
+          value: addressData.address,
+          isValid: true,
+        },
+        zip: {
+          value: addressData.zip,
+          isValid: true,
+        },
+        country: {
+          value: addressData.country,
+          isValid: true,
+        },
+        state: {
+          value: addressData.state,
+          isValid: true,
+        },
+        city: {
+          value: addressData.city,
+          isValid: true,
+        },
+      });
+    }
+  }, []);
+
   const [inputs, setInputs] = useState({
     address: { value: "", isValid: true },
     zip: { value: "", isValid: true },
@@ -27,7 +65,7 @@ export default function AddressForm(this: any) {
     });
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     const formData = {
       address: inputs.address.value,
       zip: inputs.zip.value,
@@ -75,6 +113,15 @@ export default function AddressForm(this: any) {
       });
       return;
     }
+
+    setIsSubmitting(true);
+    if (addressData?.id) {
+      await updateAddressData(formData, addressData.id);
+    } else {
+      await storeAddressData(formData);
+    }
+    setIsSubmitting(false);
+    navigation.goBack();
   }
 
   return (

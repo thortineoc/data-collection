@@ -17,20 +17,19 @@ export default function ProfileForm({ navigation }) {
     if (hasProfileData) {
       setInputs({
         firstName: {
-          value: (userDataCtx.profile as ProfileData).firstName,
+          value: userDataCtx.profile?.firstName || "",
           isValid: true,
         },
         middleName: {
-          value: (userDataCtx.profile as ProfileData).middleName,
+          value: userDataCtx.profile?.middleName || "",
           isValid: true,
         },
         lastName: {
-          value: (userDataCtx.profile as ProfileData).lastName,
+          value: userDataCtx.profile?.lastName || "",
           isValid: true,
         },
         dateOfBirth: {
-          value:
-            mapDate((userDataCtx.profile as ProfileData).dateOfBirth) ?? "",
+          value: mapDate(userDataCtx.profile?.dateOfBirth) || "",
           isValid: true,
         },
       });
@@ -96,7 +95,7 @@ export default function ProfileForm({ navigation }) {
     }
 
     setIsSubmitting(true);
-    if (userDataCtx.profile.id) {
+    if (userDataCtx?.profile?.id) {
       await updateProfileData(formData, userDataCtx.profile.id);
     } else {
       await storeProfileData(formData);
