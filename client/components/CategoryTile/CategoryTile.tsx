@@ -1,9 +1,6 @@
-import { ProfileData } from "@/models/profile";
-import ProfileDashboard from "@/screens/Dashboard/Profile-dashboard";
 import React from "react";
 import { Pressable, View, Text, StyleSheet, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import AddressDashboard from "@/screens/Dashboard/Address-dashboard";
 
 function CategoryTile({
   title,
