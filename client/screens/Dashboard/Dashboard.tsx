@@ -42,6 +42,8 @@ function Dashboard({ navigation }) {
         screen = "AddressForm";
       } else if (itemData.item.id === "c3") {
         screen = "EmploymentForm";
+      } else if (itemData.item.id === "c4") {
+        screen = "DocumentForm";
       }
 
       navigation.navigate(screen);

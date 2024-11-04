@@ -5,6 +5,7 @@ import ProfileForm from "./screens/ProfileForm/ProfileForm";
 import AddressForm from "./screens/AddressForm/AddressForm";
 import EmploymentForm from "./screens/EmploymentForm/EmploymentForm";
 import UserDataContextProvider from "./store/userData.context";
+import DocumentForm from "./screens/Document/DocumentForm";
 
 export default function RootLayout() {
   const Stack = createNativeStackNavigator();
@@ -28,6 +29,11 @@ export default function RootLayout() {
             name="EmploymentForm"
             component={EmploymentForm}
             options={{ title: "Employment" }}
+          />
+          <Stack.Screen
+            name="DocumentForm"
+            component={DocumentForm}
+            options={{ title: "Document" }}
           />
         </Stack.Navigator>
       </NavigationContainer>
